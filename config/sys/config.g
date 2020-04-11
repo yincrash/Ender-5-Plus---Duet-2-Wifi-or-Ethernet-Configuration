@@ -15,13 +15,13 @@ M586 P1 S0                                         ; disable FTP
 M586 P2 S1                                         ; enable Telnet
 
 ; Drives
-M569 P0 S1                                         ; physical drive 0 goes forwards
-M569 P1 S1                                         ; physical drive 1 goes forwards
+M569 P0 S0                                         ; physical drive 0 goes backwards
+M569 P1 S0                                         ; physical drive 1 goes backwards
 M569 P2 S0                                         ; physical drive 2 goes backwards
-M569 P3 S1                                         ; physical drive 3 goes forwards
+M569 P3 S0                                         ; physical drive 3 goes backwards
 M584 X0 Y1 Z2 E3                                   ; set drive mapping
-M350 X32 Y32 Z32 E64 I0                            ; configure microstepping without interpolation
-M92 X160.00 Y160.00 Z800.00 E407.44                ; set steps per mm
+M350 X32 Y32 Z32 E128 I0                           ; configure microstepping without interpolation
+M92 X160.00 Y160.00 Z1600.00 E774                  ; set steps per mm
 M566 X900.00 Y900.00 Z180.00 E120.00               ; set maximum instantaneous speed changes (mm/min)
 M203 X6000.00 Y6000.00 Z1200.00 E1200.00           ; set maximum speeds (mm/min)
 M201 X500.00 Y500.00 Z100.00 E250.00               ; set accelerations (mm/s^2)
@@ -33,14 +33,17 @@ M208 X0 Y0 Z0 S1                                   ; set axis minima
 M208 X350 Y350 Z400 S0                             ; set axis maxima
 
 ; Endstops
-M574 Z0 S0                                         ; set active low and disabled endstops
-M574 X1 Y1 S1                                      ; set active high endstops
+M574 Z0                                            ; disabled end stop for z
+M574 X2 Y2 S1                                      ; set active high endstops
+
+; Filament Sensor
+M591 D0 P1 S1 C3
 
 ; Z-Probe
-M307 H5 A-1 C-1 D-1                                ; disable heater on PWM channel for BLTouch
-M558 P9 H2 F120 T6000                              ; set Z probe type to bltouch and the dive height + speeds
-G31 P500 X-44 Y-9 Z2.5                             ; set Z probe trigger value, offset and trigger height
-M557 X15:6 Y15:195 S20                             ; define mesh grid
+M307 H3 A-1 C-1 D-1                                ; disable heater on PWM channel for BLTouch
+M558 P9 H5 F120 T6000                              ; set Z probe type to bltouch and the dive height + speeds
+G31 P500 X-44 Y-9 Z1.943                           ; set Z probe trigger value, offset and trigger height
+M557 X60:300 Y30:300 S30                           ; define mesh grid
 
 ; Heaters
 M307 H0 B0 S1.00                                   ; disable bang-bang mode for the bed heater and set PWM limit
@@ -48,6 +51,9 @@ M305 P0 T100000 B4138 R4700                        ; set thermistor + ADC parame
 M143 H0 S120                                       ; set temperature limit for heater 0 to 120C
 M305 P1 T100000 B4138 R4700                        ; set thermistor + ADC parameters for heater 1
 M143 H1 S280                                       ; set temperature limit for heater 1 to 280C
+
+; Bed adjustment screw locations
+M671 X316:316:46:46 Y295:35:295:35                 ; mark leveling screws at (316,295) (316,35) (46,295) (46,35)
 
 ; Fans
 M106 P0 C"part-cooling" S0.65 I0 F500 H-1          ; set fan 0 name, value, PWM signal inversion and frequency. Thermostatic control is turned off
