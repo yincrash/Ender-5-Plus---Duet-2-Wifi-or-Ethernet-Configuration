@@ -21,10 +21,10 @@ M569 P2 S0                                         ; physical drive 2 goes backw
 M569 P3 S0                                         ; physical drive 3 goes backwards
 M584 X0 Y1 Z2 E3                                   ; set drive mapping
 M350 X32 Y32 Z32 E128 I0                           ; configure microstepping without interpolation
-M92 X160.00 Y160.00 Z1600.00 E774                  ; set steps per mm
-M566 X900.00 Y900.00 Z180.00 E120.00               ; set maximum instantaneous speed changes (mm/min)
-M203 X6000.00 Y6000.00 Z1200.00 E1200.00           ; set maximum speeds (mm/min)
-M201 X500.00 Y500.00 Z100.00 E250.00               ; set accelerations (mm/s^2)
+M92 X160.00 Y160.00 Z1600.00 E754                  ; set steps per mm
+M566 X900.00 Y900.00 Z60.00 E300.00               ; set maximum instantaneous speed changes (mm/min)
+M203 X1800.00 Y1800.00 Z1200.00 E1200.00           ; set maximum speeds (mm/min)
+M201 X3000.00 Y3000.00 Z60.00 E250.00             ; set accelerations (mm/s^2)
 M906 X800 Y800 Z800 E800 I30                       ; set motor currents (mA) and motor idle factor in per cent
 M84 S30                                            ; Set idle timeout
 
@@ -42,7 +42,7 @@ M591 D0 P1 S1 C3
 ; Z-Probe
 M307 H3 A-1 C-1 D-1                                ; disable heater on PWM channel for BLTouch
 M558 P9 H5 F120 T6000                              ; set Z probe type to bltouch and the dive height + speeds
-G31 P500 X-44 Y-9 Z1.943                           ; set Z probe trigger value, offset and trigger height
+G31 P500 X-44 Y-9 Z2.09                            ; set Z probe trigger value, offset and trigger height
 M557 X60:300 Y30:300 S30                           ; define mesh grid
 
 ; Heaters
@@ -50,7 +50,7 @@ M307 H0 B0 S1.00                                   ; disable bang-bang mode for 
 M305 P0 T100000 B4138 R4700                        ; set thermistor + ADC parameters for heater 0
 M143 H0 S120                                       ; set temperature limit for heater 0 to 120C
 M305 P1 T100000 B4138 R4700                        ; set thermistor + ADC parameters for heater 1
-M143 H1 S280                                       ; set temperature limit for heater 1 to 280C
+M143 H1 S285                                       ; set temperature limit for heater 1 to 280C
 
 ; Bed adjustment screw locations
 M671 X316:316:46:46 Y295:35:295:35                 ; mark leveling screws at (316,295) (316,35) (46,295) (46,35)

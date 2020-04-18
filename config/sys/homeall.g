@@ -9,7 +9,7 @@ G1 H2 X-5 Y-5 F6000       ; go back a few mm
 G1 H1 X355 Y355 F360  ; move slowly to X and Y axis endstops once more (second pass)
 ;G1 H1 Z-405 F360        ; move Z down stopping at the endstop
 G90                     ; absolute positioning
-;G92 Z0                  ; set Z position to axis minimum (you may want to adjust this)
+G1 X175 Y175 F6000 ; move to center of bed
 G30
 
 ; Uncomment the following lines to lift Z after probing
